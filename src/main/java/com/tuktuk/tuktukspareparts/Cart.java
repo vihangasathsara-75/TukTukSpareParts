@@ -54,4 +54,47 @@ public class Cart {
         return true;
     }
 
+    // removes an item from the cart by its part code
+    public boolean removeItem(String code) {
+
+        for (int i = 0; i < cartItems.size(); i++) {
+            if (cartItems.get(i).getCode().equals(code)) {
+                cartItems.remove(i);
+                cartQuantities.remove(i);
+                System.out.println("removed from cart: " + code);
+                return true;
+            }
+        }
+
+        System.out.println("item not found in cart: " + code);
+        return false;
+    }
+
+    // empties the cart completely
+    public void clearCart() {
+        cartItems.clear();
+        cartQuantities.clear();
+        System.out.println("cart cleared");
+    }
+
+    // returns the list of items in the cart
+    public ArrayList<Part> getCartItems() {
+        return cartItems;
+    }
+
+    // returns the list of quantities in the cart
+    public ArrayList<Integer> getCartQuantities() {
+        return cartQuantities;
+    }
+
+    // returns how many different items are in the cart
+    public int getItemCount() {
+        return cartItems.size();
+    }
+
+    // checks if cart is empty
+    public boolean isEmpty() {
+        return cartItems.size() == 0;
+    }
+
 }
