@@ -13,7 +13,7 @@ public class InventoryManager {
 
     public InventoryManager() {
         partList = new ArrayList<>();
-    
+
     }
 
 
@@ -44,6 +44,7 @@ public class InventoryManager {
         // code is unique so add it
         partList.add(newPart);
         System.out.println("part added: " + newPart.getCode());
+        saveParts();
         return true;
     }
 
@@ -57,6 +58,7 @@ public class InventoryManager {
             if (partList.get(i).getCode().equals(code)) {
                 partList.remove(i);
                 System.out.println("part deleted: " + code);
+                saveParts();
                 return true;
             }
         }
@@ -78,6 +80,7 @@ public class InventoryManager {
                 // replace the old part with the updated one
                 partList.set(i, updatedPart);
                 System.out.println("part updated: " + code);
+                saveParts();
                 return true;
             }
         }
@@ -135,6 +138,29 @@ public class InventoryManager {
 
         // part wasnt found
         return null;
+    }
+
+    public int getTotalCount() {
+        return partList.size();
+    }
+
+    public double getTotalValue() {
+        double total = 0;
+        for (int i = 0; i < partList.size(); i++) {
+            Part p = partList.get(i);
+            total = total + (p.getPrice() * p.getQuantity());
+        }
+        return total;
+    }
+
+    public ArrayList<Part> getLowStockParts(int threshold) {
+        ArrayList<Part> lowStock = new ArrayList<>();
+        for (int i = 0; i < partList.size(); i++) {
+            if (partList.get(i).getQuantity() < threshold) {
+                lowStock.add(partList.get(i));
+            }
+        }
+        return lowStock;
     }
 }
 
