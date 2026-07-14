@@ -9,13 +9,11 @@ public class InventoryManager {
     // this is the list that holds all parts while the app is running
     private ArrayList<Part> partList;
 
-    // this is where the inventory file is stored
-    private String filename;
+    private String filename = "inventory_legacy.txt";
 
-    // constructor - when we create an InventoryManager we give it the filename
-    public InventoryManager(String filename) {
-        this.filename = filename;
-        this.partList = new ArrayList<>();
+    public InventoryManager() {
+        partList = new ArrayList<>();
+    
     }
 
 
