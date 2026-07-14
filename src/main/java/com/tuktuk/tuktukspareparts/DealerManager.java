@@ -45,4 +45,41 @@ public class DealerManager {
         return selected;
     }
 
+    // sorts the 4 selected dealers alphabetically by location
+    public ArrayList<Dealer> getSortedByLocation(ArrayList<Dealer> dealers) {
+
+        ArrayList<Dealer> sorted = new ArrayList<>(dealers);
+
+        int n = sorted.size();
+
+        // bubble sort
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+
+                String currentLocation = sorted.get(j).getLocation();
+                String nextLocation = sorted.get(j + 1).getLocation();
+
+                if (currentLocation.compareTo(nextLocation) > 0) {
+
+                    // swap them
+                    Dealer temp = sorted.get(j);
+                    sorted.set(j, sorted.get(j + 1));
+                    sorted.set(j + 1, temp);
+                }
+            }
+        }
+
+        return sorted;
+    }
+
+    // picks 4 random unique dealers and returns them sorted by location
+    public ArrayList<Dealer> getRandomDealersSortedByLocation() {
+
+        ArrayList<Dealer> randomDealers = getRandomDealers();
+
+        ArrayList<Dealer> sortedDealers = getSortedByLocation(randomDealers);
+
+        return sortedDealers;
+    }
+
 }
