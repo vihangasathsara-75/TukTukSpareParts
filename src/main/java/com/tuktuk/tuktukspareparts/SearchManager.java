@@ -47,13 +47,26 @@ public class SearchManager {
                     matches = false;
                 }
             }
-            
+
             if (matches) {
                 results.add(part);
             }
         }
 
         return results;
+    }
+
+    // simple helper to find one part by its exact code
+    public static Part findByCode(ArrayList<Part> allParts, String code) {
+
+        for (int i = 0; i < allParts.size(); i++) {
+            if (allParts.get(i).getCode().equalsIgnoreCase(code)) {
+                return allParts.get(i);
+            }
+        }
+
+        // nothing found
+        return null;
     }
 
 }
