@@ -97,4 +97,52 @@ public class Cart {
         return cartItems.size() == 0;
     }
 
+    // calculates the final total with all discounts applied
+    public double calculateTotal() {
+
+        // calculate subtotal for each item
+        double totalAfterItemDiscounts = 0;
+
+        // also check if cart has engine and electrical parts for discount
+        boolean hasEngine = false;
+        boolean hasElectrical = false;
+
+        for (int i = 0; i < cartItems.size(); i++) {
+            Part part = cartItems.get(i);
+            int qty = cartQuantities.get(i);
+
+            // calculate subtotal for this item
+            double subtotal = part.getPrice() * qty;
+
+            // check for bulk discount
+            if (qty >= 3) {
+                double discount = subtotal * 0.05;
+                subtotal = subtotal - discount;
+                System.out.println("bulk discount applied for: " + part.getName());
+            }
+
+            // add this items subtotal to running total
+            totalAfterItemDiscounts = totalAfterItemDiscounts + subtotal;
+
+            // check category for discount
+            if (part.getCategory().equalsIgnoreCase("Engine")) {
+                hasEngine = true;
+            }
+            if (part.getCategory().equalsIgnoreCase("Electrical")) {
+                hasElectrical = true;
+            }
+        }
+
+        // apply discount if cart has both engine and electrical
+        double finalTotal = totalAfterItemDiscounts;
+
+        if (hasEngine && hasElectrical) {
+            double synergyDiscount = totalAfterItemDiscounts * 0.10;
+            finalTotal = totalAfterItemDiscounts - synergyDiscount;
+            System.out.println("synergy discount applied - 10% off total");
+        }
+
+        return finalTotal;
+    }
+
 }
