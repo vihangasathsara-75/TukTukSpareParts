@@ -145,4 +145,37 @@ public class Cart {
         return finalTotal;
     }
 
+    // processes the checkout
+    // deducts stock from inventory and clears the cart
+    public boolean checkout(InventoryManager inventoryManager) {
+
+        // cant checkout empty cart
+        if (isEmpty()) {
+            System.out.println("cart is empty - nothing to checkout");
+            return false;
+        }
+
+        // deduct stock for each item
+        for (int i = 0; i < cartItems.size(); i++) {
+            Part part = cartItems.get(i);
+            int qty = cartQuantities.get(i);
+
+            // calculate new quantity after sale
+            int newQuantity = part.getQuantity() - qty;
+
+            // update the part with new quantity
+            part.setQuantity(newQuantity);
+            inventoryManager.updatePart(part.getCode(), part);
+        }
+
+        // print final total
+        double total = calculateTotal();
+        System.out.println("checkout complete - total: Rs." + total);
+
+        // clear the cart after successful checkout
+        clearCart();
+
+        return true;
+    }
+
 }
