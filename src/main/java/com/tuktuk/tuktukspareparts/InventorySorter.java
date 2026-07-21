@@ -54,9 +54,14 @@ public class InventorySorter {
     // it first sorts by category, then sorts by code within each category
     public static ArrayList<Part> getSortedParts(ArrayList<Part> parts) {
 
+        if (parts.size() == 0) {
+            System.out.println("no parts to sort");
+            return new ArrayList<>();
+        }
+
         // make a copy so that dont change the original list
         ArrayList<Part> sortedList = new ArrayList<>(parts);
-        
+
         sortByCode(sortedList);
 
         sortByCategory(sortedList);
