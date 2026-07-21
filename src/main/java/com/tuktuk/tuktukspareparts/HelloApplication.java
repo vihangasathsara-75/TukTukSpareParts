@@ -29,7 +29,7 @@ public class HelloApplication extends Application {
         auditLogger = new AuditLogger();
 
         // loads the main screen
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main-view.fxml"));
 
         // made the window bigger so everything fits
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
