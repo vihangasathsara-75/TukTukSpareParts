@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="10.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tuktuk.tuktukspareparts.AddPartController">
+    <children>
+        <Label text="Add New Part">
+            <font>
+                <Font name="System Bold" size="16.0" />
+            </font>
+        </Label>
+        <HBox spacing="10.0">
+            <children>
+                <Label minWidth="100.0" text="Part Code:" />
+                <TextField fx:id="txtCode" promptText="e.g. P011" />
+            </children>
+        </HBox>
+        <HBox spacing="10.0">
+            <children>
+                <Label minWidth="100.0" text="Name:" />
+                <TextField fx:id="txtName" promptText="Part name" />
+            </children>
+        </HBox>
+        <HBox spacing="10.0">
+            <children>
+                <Label minWidth="100.0" text="Brand:" />
+                <TextField fx:id="txtBrand" promptText="Brand name" />
+            </children>
+        </HBox>
+        <HBox spacing="10.0">
+            <children>
+                <Label minWidth="100.0" text="Price:" />
+                <TextField fx:id="txtPrice" promptText="e.g. 1500.00" />
+            </children>
+        </HBox>
+        <HBox spacing="10.0">
+            <children>
+                <Label minWidth="100.0" text="Quantity:" />
+                <TextField fx:id="txtQuantity" promptText="e.g. 10" />
+            </children>
+        </HBox>
+        <HBox spacing="10.0">
+            <children>
+                <Label minWidth="100.0" text="Category:" />
+                <ComboBox fx:id="cmbCategory" promptText="Select category" />
+            </children>
+        </HBox>
+        <HBox spacing="10.0">
+            <children>
+                <Label minWidth="100.0" text="Date:" />
+                <TextField fx:id="txtDate" promptText="e.g. 2024-07-13" />
+            </children>
+        </HBox>
+        <HBox spacing="10.0">
+            <children>
+                <Label minWidth="100.0" text="Image File:" />
+                <TextField fx:id="txtImageFile" promptText="e.g. part.jpg" />
+            </children>
+        </HBox>
+        <Label fx:id="lblMessage" textFill="RED" />
+        <HBox spacing="10.0">
+            <children>
+                <Button fx:id="btnSave" mnemonicParsing="false" onAction="#handleSave" text="Save Part" />
+                <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+            </children>
+        </HBox>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</VBox>
