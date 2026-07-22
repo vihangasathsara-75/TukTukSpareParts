@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="10.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tuktuk.tuktukspareparts.CartController">
+    <children>
+        <Label text="Cart / Point of Sale">
+            <font>
+                <Font name="System Bold" size="16.0" />
+            </font>
+        </Label>
+        <HBox spacing="10.0">
+            <children>
+                <Label minWidth="100.0" text="Part Code:" />
+                <TextField fx:id="txtPartCode" promptText="e.g. P001" />
+                <Label minWidth="70.0" text="Quantity:" />
+                <TextField fx:id="txtQuantity" prefWidth="60.0" promptText="e.g. 2" />
+                <Button mnemonicParsing="false" onAction="#handleAddToCart" text="Add to Cart" />
+            </children>
+        </HBox>
+        <TableView fx:id="cartTable" prefHeight="250.0">
+            <columns>
+                <TableColumn fx:id="colCode" prefWidth="70.0" text="Code" />
+                <TableColumn fx:id="colName" prefWidth="200.0" text="Name" />
+                <TableColumn fx:id="colPrice" prefWidth="80.0" text="Price" />
+                <TableColumn fx:id="colQuantity" prefWidth="50.0" text="Qty" />
+                <TableColumn fx:id="colSubtotal" prefWidth="100.0" text="Subtotal" />
+            </columns>
+        </TableView>
+        <HBox spacing="10.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#handleRemove" text="Remove Selected" />
+                <Button mnemonicParsing="false" onAction="#handleClear" text="Clear Cart" />
+            </children>
+        </HBox>
+        <Label fx:id="lblTotal" text="Total: Rs.0.00">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+        <Label fx:id="lblDiscount" />
+        <Label fx:id="lblMessage" textFill="RED" />
+        <Button mnemonicParsing="false" onAction="#handleCheckout" text="Checkout">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</VBox>
