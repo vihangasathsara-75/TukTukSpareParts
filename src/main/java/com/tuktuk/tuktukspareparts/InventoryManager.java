@@ -153,6 +153,16 @@ public class InventoryManager {
         return total;
     }
 
+    private int lowStockThreshold = 5;
+
+    public int getLowStockThreshold() {
+        return lowStockThreshold;
+    }
+
+    public void setLowStockThreshold(int threshold) {
+        this.lowStockThreshold = threshold;
+    }
+
     public ArrayList<Part> getLowStockParts(int threshold) {
         ArrayList<Part> lowStock = new ArrayList<>();
         for (int i = 0; i < partList.size(); i++) {
