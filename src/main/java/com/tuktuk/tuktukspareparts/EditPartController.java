@@ -25,6 +25,8 @@ public class EditPartController {
     @FXML
     private DatePicker datePicker;
     @FXML
+    private TextField txtThreshold;
+    @FXML
     private TextField txtImageFile;
     @FXML
     private Label lblMessage;
@@ -53,6 +55,7 @@ public class EditPartController {
                 datePicker.setValue(null);
             }
         }
+        txtThreshold.setText(String.valueOf(part.getLowStockThreshold()));
         txtImageFile.setText(part.getImageFile());
     }
 
@@ -67,6 +70,21 @@ public class EditPartController {
         String date = "";
         if (datePicker.getValue() != null) {
             date = datePicker.getValue().toString();
+        }
+        String thresholdStr = txtThreshold.getText().trim();
+        int threshold = 5;
+
+        if (!thresholdStr.isEmpty()) {
+            try {
+                threshold = Integer.parseInt(thresholdStr);
+                if (threshold < 0) {
+                    lblMessage.setText("threshold cannot be negative");
+                    return;
+                }
+            } catch (Exception e) {
+                lblMessage.setText("threshold must be a whole number");
+                return;
+            }
         }
         String imageFile = txtImageFile.getText().trim();
 
@@ -103,7 +121,7 @@ public class EditPartController {
         }
 
         Part updatedPart = new Part(currentPart.getCode(), name, brand,
-                price, quantity, category, date, imageFile);
+                price, quantity, category, date, threshold, imageFile);
 
         HelloApplication.inventoryManager.updatePart(currentPart.getCode(), updatedPart);
 

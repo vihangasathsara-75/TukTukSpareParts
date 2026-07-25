@@ -151,9 +151,18 @@ public class DataParser {
             date = formatDate(date);
         }
 
+        int threshold = 5;
+        if (fields.length > 9) {
+            try {
+                threshold = Integer.parseInt(fields[9].trim());
+            } catch (Exception e) {
+                System.out.println("bad threshold found: " + fields[9]);
+            }
+        }
+
         // create and return the clean Part object
         return new Part(code, name, brand, price, quantity,
-                category, date, imageFile);
+                category, date, threshold, imageFile);
 
     } // parsePart ends here
 

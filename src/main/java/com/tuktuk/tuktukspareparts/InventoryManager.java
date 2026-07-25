@@ -16,7 +16,6 @@ public class InventoryManager {
 
     }
 
-
     // when the app starts this loads all parts from the file into the list
     public void loadParts() {
         partList = DataParser.loadParts(filename);
@@ -27,7 +26,6 @@ public class InventoryManager {
     public ArrayList<Part> getAllParts() {
         return partList;
     }
-
 
     // adds a new part to the list
     // returns false if a part with the same code already exists
@@ -48,7 +46,6 @@ public class InventoryManager {
         return true;
     }
 
-
     // deletes a part by its code
     // returns false if part wasnt found
     public boolean deletePart(String code) {
@@ -67,7 +64,6 @@ public class InventoryManager {
         System.out.println("part not found: " + code);
         return false;
     }
-
 
     // finds a part by code and replaces it with updated details
     // returns false if part wasnt found
@@ -90,7 +86,6 @@ public class InventoryManager {
         return false;
     }
 
-
     // saves the current list back to the text file
     // this is called after every add, delete or update
     public void saveParts() {
@@ -111,6 +106,7 @@ public class InventoryManager {
                         p.getQuantity() + "," +
                         p.getCategory() + "," +
                         p.getDate() + "," +
+                        p.getLowStockThreshold() + "," +
                         p.getImageFile());
 
                 // move to next line
@@ -124,7 +120,6 @@ public class InventoryManager {
             System.out.println("couldnt save to file: " + filename);
         }
     }
-
 
     // finds and returns one part by its code
     // returns null if not found
@@ -153,24 +148,14 @@ public class InventoryManager {
         return total;
     }
 
-    private int lowStockThreshold = 5;
-
-    public int getLowStockThreshold() {
-        return lowStockThreshold;
-    }
-
-    public void setLowStockThreshold(int threshold) {
-        this.lowStockThreshold = threshold;
-    }
-
-    public ArrayList<Part> getLowStockParts(int threshold) {
+    public ArrayList<Part> getLowStockParts() {
         ArrayList<Part> lowStock = new ArrayList<>();
         for (int i = 0; i < partList.size(); i++) {
-            if (partList.get(i).getQuantity() < threshold) {
-                lowStock.add(partList.get(i));
+            Part p = partList.get(i);
+            if (p.getQuantity() < p.getLowStockThreshold()) {
+                lowStock.add(p);
             }
         }
         return lowStock;
     }
 }
-

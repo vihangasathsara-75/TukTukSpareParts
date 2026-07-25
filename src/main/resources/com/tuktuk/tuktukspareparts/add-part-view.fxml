@@ -61,6 +61,12 @@
         </HBox>
         <HBox spacing="10.0">
             <children>
+                <Label minWidth="100.0" text="Low Stock Alert:" />
+                <TextField fx:id="txtThreshold" promptText="e.g. 10" />
+            </children>
+        </HBox>
+        <HBox spacing="10.0">
+            <children>
                 <Label minWidth="100.0" text="Image File:" />
                 <TextField fx:id="txtImageFile" promptText="e.g. part.jpg" />
             </children>

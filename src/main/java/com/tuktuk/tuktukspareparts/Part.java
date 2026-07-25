@@ -8,9 +8,11 @@ public class Part {
     private int quantity;
     private String category;
     private String date;
+    private int lowStockThreshold;
     private String imageFile;
 
-    public Part(String code, String name, String brand, double price, int quantity, String category, String date, String imagefile) {
+    public Part(String code, String name, String brand, double price, int quantity, String category, String date,
+            int lowStockThreshold, String imageFile) {
         this.code = code;
         this.name = name;
         this.brand = brand;
@@ -18,6 +20,7 @@ public class Part {
         this.quantity = quantity;
         this.category = category;
         this.date = date;
+        this.lowStockThreshold = lowStockThreshold;
         this.imageFile = imageFile;
 
     }
@@ -50,6 +53,10 @@ public class Part {
         return date;
     }
 
+    public int getLowStockThreshold() {
+        return lowStockThreshold;
+    }
+
     public String getImageFile() {
         return imageFile;
     }
@@ -76,6 +83,10 @@ public class Part {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public void setLowStockThreshold(int lowStockThreshold) {
+        this.lowStockThreshold = lowStockThreshold;
     }
 
     public void setImageFile(String imageFile) {

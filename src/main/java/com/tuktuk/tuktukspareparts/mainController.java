@@ -53,8 +53,6 @@ public class MainController {
     private Button btnCart;
     @FXML
     private Button btnDealers;
-    @FXML
-    private TextField txtThreshold;
 
     // Public static variable so the Edit screen can read the selected item easily
     public static Part selectedPart = null;
@@ -88,8 +86,7 @@ public class MainController {
     }
 
     private void checkLowStock() {
-        int threshold = HelloApplication.inventoryManager.getLowStockThreshold();
-        ArrayList<Part> lowStock = HelloApplication.inventoryManager.getLowStockParts(threshold);
+        ArrayList<Part> lowStock = HelloApplication.inventoryManager.getLowStockParts();
 
         if (lowStock.size() == 0) {
             lblLowStock.setText("No low stock items");

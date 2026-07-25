@@ -66,7 +66,6 @@
                         <Label fx:id="lblTotalValue" text="Total Value: Rs.0.00" />
                     </children>
                 </HBox>
-
                 <Label fx:id="lblLowStock" text="No low stock items" textFill="RED">
                     <VBox.margin>
                         <Insets top="5.0" />

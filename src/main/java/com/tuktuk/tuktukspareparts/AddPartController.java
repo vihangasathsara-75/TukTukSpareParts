@@ -7,7 +7,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.scene.control.DatePicker;
 
 public class AddPartController {
 
@@ -25,6 +24,8 @@ public class AddPartController {
     private ComboBox<String> cmbCategory;
     @FXML
     private DatePicker datePicker;
+    @FXML
+    private TextField txtThreshold;
     @FXML
     private TextField txtImageFile;
     @FXML
@@ -49,6 +50,23 @@ public class AddPartController {
         if (datePicker.getValue() != null) {
             date = datePicker.getValue().toString();
         }
+
+        String thresholdStr = txtThreshold.getText().trim();
+        int threshold = 5;
+
+        if (!thresholdStr.isEmpty()) {
+            try {
+                threshold = Integer.parseInt(thresholdStr);
+                if (threshold < 0) {
+                    lblMessage.setText("threshold cannot be negative");
+                    return;
+                }
+            } catch (Exception e) {
+                lblMessage.setText("threshold must be a whole number");
+                return;
+            }
+        }
+
         String imageFile = txtImageFile.getText().trim();
 
         if (code.isEmpty() || name.isEmpty() || priceStr.isEmpty()
@@ -93,7 +111,7 @@ public class AddPartController {
         }
 
         Part newPart = new Part(code, name, brand, price,
-                quantity, category, date, imageFile);
+                quantity, category, date, threshold, imageFile);
 
         boolean added = HelloApplication.inventoryManager.addPart(newPart);
 
