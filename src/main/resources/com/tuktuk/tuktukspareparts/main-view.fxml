@@ -38,13 +38,13 @@
                 </TableView>
                 <VBox minWidth="120.0" spacing="10.0">
                     <children>
-                        <Button fx:id="btnAdd" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Add Part" />
-                        <Button fx:id="btnEdit" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Edit Part" />
-                        <Button fx:id="btnDelete" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Delete Part" />
+                        <Button fx:id="btnAdd" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Add Part" onAction="#handleAdd"/>
+                        <Button fx:id="btnEdit" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Edit Part" onAction="#handleEdit" />
+                        <Button fx:id="btnDelete" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Delete Part" onAction="#handleDelete" />
                         <Separator prefWidth="200.0" />
-                        <Button fx:id="btnSearch" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Search" />
-                        <Button fx:id="btnCart" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Cart / POS" />
-                        <Button fx:id="btnDealers" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Dealers" />
+                        <Button fx:id="btnSearch" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Search" onAction="#handleSearch" />
+                        <Button fx:id="btnCart" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Cart / POS" onAction="#handleCart" />
+                        <Button fx:id="btnDealers" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Dealers" onAction="#handleDealers" />
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -66,6 +66,7 @@
                         <Label fx:id="lblTotalValue" text="Total Value: Rs.0.00" />
                     </children>
                 </HBox>
+
                 <Label fx:id="lblLowStock" text="No low stock items" textFill="RED">
                     <VBox.margin>
                         <Insets top="5.0" />
