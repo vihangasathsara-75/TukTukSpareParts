@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.DatePicker?>
 
 <VBox spacing="10.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tuktuk.tuktukspareparts.AddPartController">
     <children>
@@ -55,7 +56,7 @@
         <HBox spacing="10.0">
             <children>
                 <Label minWidth="100.0" text="Date:" />
-                <TextField fx:id="txtDate" promptText="e.g. 2024-07-13" />
+                <DatePicker fx:id="datePicker"/>
             </children>
         </HBox>
         <HBox spacing="10.0">

@@ -3,29 +3,38 @@ package com.tuktuk.tuktukspareparts;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class EditPartController {
 
-    @FXML private Label lblCode;
-    @FXML private TextField txtName;
-    @FXML private TextField txtBrand;
-    @FXML private TextField txtPrice;
-    @FXML private TextField txtQuantity;
-    @FXML private ComboBox<String> cmbCategory;
-    @FXML private TextField txtDate;
-    @FXML private TextField txtImageFile;
-    @FXML private Label lblMessage;
+    @FXML
+    private Label lblCode;
+    @FXML
+    private TextField txtName;
+    @FXML
+    private TextField txtBrand;
+    @FXML
+    private TextField txtPrice;
+    @FXML
+    private TextField txtQuantity;
+    @FXML
+    private ComboBox<String> cmbCategory;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private TextField txtImageFile;
+    @FXML
+    private Label lblMessage;
 
     private Part currentPart;
 
     @FXML
     public void initialize() {
         cmbCategory.setItems(FXCollections.observableArrayList(
-                "Engine", "Electrical", "Bodywork", "Brakes"
-        ));
+                "Engine", "Electrical", "Bodywork", "Brakes"));
     }
 
     public void setPart(Part part) {
@@ -36,7 +45,14 @@ public class EditPartController {
         txtPrice.setText(String.valueOf(part.getPrice()));
         txtQuantity.setText(String.valueOf(part.getQuantity()));
         cmbCategory.setValue(part.getCategory());
-        txtDate.setText(part.getDate());
+        if (part.getDate() != null && !part.getDate().isEmpty()) {
+            try {
+                datePicker.setValue(java.time.LocalDate.parse(part.getDate()));
+            } catch (Exception e) {
+                // if date cant be parsed just leave picker empty
+                datePicker.setValue(null);
+            }
+        }
         txtImageFile.setText(part.getImageFile());
     }
 
@@ -48,7 +64,10 @@ public class EditPartController {
         String priceStr = txtPrice.getText().trim();
         String quantityStr = txtQuantity.getText().trim();
         String category = cmbCategory.getValue();
-        String date = txtDate.getText().trim();
+        String date = "";
+        if (datePicker.getValue() != null) {
+            date = datePicker.getValue().toString();
+        }
         String imageFile = txtImageFile.getText().trim();
 
         if (name.isEmpty() || priceStr.isEmpty()

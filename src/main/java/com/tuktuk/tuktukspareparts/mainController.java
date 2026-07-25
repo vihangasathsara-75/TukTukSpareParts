@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -16,25 +17,44 @@ import java.util.ArrayList;
 
 public class MainController {
 
-    @FXML private TableView<Part> inventoryTable;
-    @FXML private TableColumn<Part, String> colCode;
-    @FXML private TableColumn<Part, String> colName;
-    @FXML private TableColumn<Part, String> colBrand;
-    @FXML private TableColumn<Part, String> colCategory;
-    @FXML private TableColumn<Part, Double> colPrice;
-    @FXML private TableColumn<Part, Integer> colQuantity;
-    @FXML private TableColumn<Part, String> colDate;
+    @FXML
+    private TableView<Part> inventoryTable;
+    @FXML
+    private TableColumn<Part, String> colCode;
+    @FXML
+    private TableColumn<Part, String> colName;
+    @FXML
+    private TableColumn<Part, String> colBrand;
+    @FXML
+    private TableColumn<Part, String> colCategory;
+    @FXML
+    private TableColumn<Part, Double> colPrice;
+    @FXML
+    private TableColumn<Part, Integer> colQuantity;
+    @FXML
+    private TableColumn<Part, String> colDate;
 
-    @FXML private Label lblTotalCount;
-    @FXML private Label lblTotalValue;
-    @FXML private Label lblLowStock;
+    @FXML
+    private Label lblTotalCount;
+    @FXML
+    private Label lblTotalValue;
+    @FXML
+    private Label lblLowStock;
 
-    @FXML private Button btnAdd;
-    @FXML private Button btnEdit;
-    @FXML private Button btnDelete;
-    @FXML private Button btnSearch;
-    @FXML private Button btnCart;
-    @FXML private Button btnDealers;
+    @FXML
+    private Button btnAdd;
+    @FXML
+    private Button btnEdit;
+    @FXML
+    private Button btnDelete;
+    @FXML
+    private Button btnSearch;
+    @FXML
+    private Button btnCart;
+    @FXML
+    private Button btnDealers;
+    @FXML
+    private TextField txtThreshold;
 
     // Public static variable so the Edit screen can read the selected item easily
     public static Part selectedPart = null;
@@ -56,8 +76,7 @@ public class MainController {
     public void loadTable() {
         // Fetch parts list and display in table
         ObservableList<Part> parts = FXCollections.observableArrayList(
-                HelloApplication.inventoryManager.getAllParts()
-        );
+                HelloApplication.inventoryManager.getAllParts());
 
         inventoryTable.setItems(parts);
 
@@ -129,15 +148,25 @@ public class MainController {
     @FXML
     private void handleDelete() {
         Part selected = inventoryTable.getSelectionModel().getSelectedItem();
-
         if (selected == null) {
-            System.out.println("Please select a part to delete!");
+            System.out.println("no part selected");
             return;
         }
 
-        HelloApplication.inventoryManager.deletePart(selected.getCode());
-        HelloApplication.auditLogger.logDeletePart(selected.getCode(), selected.getName());
-        loadTable();
+        // show confirmation dialog
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+                javafx.scene.control.Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Part");
+        alert.setHeaderText("Are you sure?");
+        alert.setContentText("Delete " + selected.getName() + "?");
+
+        java.util.Optional<javafx.scene.control.ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == javafx.scene.control.ButtonType.OK) {
+            HelloApplication.inventoryManager.deletePart(selected.getCode());
+            HelloApplication.auditLogger.logDeletePart(selected.getCode(), selected.getName());
+            loadTable();
+        }
     }
 
     @FXML

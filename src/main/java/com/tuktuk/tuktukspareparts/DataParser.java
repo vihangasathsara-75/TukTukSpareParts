@@ -3,6 +3,9 @@ package com.tuktuk.tuktukspareparts;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class DataParser {
 
@@ -35,7 +38,36 @@ public class DataParser {
         }
 
         return partList;
-    }   // loadParts ends here
+    } // loadParts ends here
+
+    private static String formatDate(String rawDate) {
+
+        String[] patterns = {
+                "yyyy-MM-dd",
+                "dd/MM/yyyy",
+                "dd-MMM-yyyy",
+                "MMM dd, yyyy",
+                "MMM dd yyyy",
+                "dd-MM-yyyy",
+                "yyyy/MM/dd"
+        };
+
+        rawDate = rawDate.trim();
+
+        for (int i = 0; i < patterns.length; i++) {
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
+                        patterns[i], Locale.ENGLISH);
+                LocalDate parsed = LocalDate.parse(rawDate, formatter);
+                return parsed.toString();
+            } catch (Exception e) {
+                // try next pattern
+            }
+        }
+
+        // if nothing worked keep original
+        return rawDate;
+    }
 
     // this method takes one messy line and turns it into a clean Part object
     private static Part parsePart(String line) {
@@ -59,8 +91,8 @@ public class DataParser {
         }
 
         // read basic fields
-        String code  = fields[0];
-        String name  = fields[1];
+        String code = fields[0];
+        String name = fields[1];
         String brand = fields[2];
 
         // some parts dont have a brand so use Unknown
@@ -99,7 +131,7 @@ public class DataParser {
         // handle date - "Oct 15, 2023" has a comma so it gets split
         // if fields[7] is a 4 digit year it means date got split
         // so sjoin them back together
-        String date      = "";
+        String date = "";
         String imageFile = "";
 
         if (fields.length > 6) {
@@ -116,13 +148,14 @@ public class DataParser {
                     imageFile = fields[7].trim();
                 }
             }
+            date = formatDate(date);
         }
 
         // create and return the clean Part object
         return new Part(code, name, brand, price, quantity,
                 category, date, imageFile);
 
-    }   // parsePart ends here
+    } // parsePart ends here
 
     // this method opens the dealer file and collects all dealers into a list
     public static ArrayList<Dealer> loadDealers(String filename) {
@@ -181,6 +214,6 @@ public class DataParser {
 
         return dealerList;
 
-    }   // loadDealers ends here
+    } // loadDealers ends here
 
-}   // end of DataParser class
+} // end of DataParser class

@@ -14,25 +14,36 @@ import java.util.ArrayList;
 
 public class SearchController {
 
-    @FXML private TextField txtKeyword;
-    @FXML private ComboBox<String> cmbCategory;
-    @FXML private TextField txtMinPrice;
-    @FXML private TextField txtMaxPrice;
-    @FXML private TableView<Part> searchResultsTable;
-    @FXML private TableColumn<Part, String> colCode;
-    @FXML private TableColumn<Part, String> colName;
-    @FXML private TableColumn<Part, String> colBrand;
-    @FXML private TableColumn<Part, String> colCategory;
-    @FXML private TableColumn<Part, Double> colPrice;
-    @FXML private TableColumn<Part, Integer> colQuantity;
-    @FXML private Label lblResults;
+    @FXML
+    private TextField txtKeyword;
+    @FXML
+    private ComboBox<String> cmbCategory;
+    @FXML
+    private TextField txtMinPrice;
+    @FXML
+    private TextField txtMaxPrice;
+    @FXML
+    private TableView<Part> searchResultsTable;
+    @FXML
+    private TableColumn<Part, String> colCode;
+    @FXML
+    private TableColumn<Part, String> colName;
+    @FXML
+    private TableColumn<Part, String> colBrand;
+    @FXML
+    private TableColumn<Part, String> colCategory;
+    @FXML
+    private TableColumn<Part, Double> colPrice;
+    @FXML
+    private TableColumn<Part, Integer> colQuantity;
+    @FXML
+    private Label lblResults;
 
     @FXML
     public void initialize() {
 
         cmbCategory.setItems(FXCollections.observableArrayList(
-                "", "Engine", "Electrical", "Bodywork", "Brakes"
-        ));
+                "", "Engine", "Electrical", "Bodywork", "Brakes"));
 
         colCode.setCellValueFactory(new PropertyValueFactory<>("code"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -55,6 +66,11 @@ public class SearchController {
 
         double minPrice = 0;
         double maxPrice = 0;
+
+        if (minPrice > 0 && maxPrice > 0 && minPrice > maxPrice) {
+            lblResults.setText("min price cannot be greater than max price");
+            return;
+        }
 
         try {
             if (!txtMinPrice.getText().trim().isEmpty()) {
