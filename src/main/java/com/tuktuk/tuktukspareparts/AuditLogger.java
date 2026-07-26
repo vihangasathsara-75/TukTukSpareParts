@@ -13,15 +13,12 @@ public class AuditLogger {
     private void writeLog(String message) {
 
         try {
-            // true means appends to end of file
             BufferedWriter writer = new BufferedWriter(new FileWriter(logFile, true));
 
-            // get current date and time
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String timestamp = now.format(formatter);
 
-            // write timestamp and message
             writer.write(timestamp + " | " + message);
             writer.newLine();
 
@@ -32,21 +29,18 @@ public class AuditLogger {
         }
     }
 
-    // logs when a new part is added
     public void logAddPart(String partCode, String partName, int quantity) {
         String message = "ADDED | " + partCode + " | " + partName + " | Qty: " + quantity;
         writeLog(message);
         System.out.println("logged: part added - " + partCode);
     }
 
-    // logs when a part is deleted
     public void logDeletePart(String partCode, String partName) {
         String message = "DELETED | " + partCode + " | " + partName + " | -";
         writeLog(message);
         System.out.println("logged: part deleted - " + partCode);
     }
 
-    // logs when a checkout is processed
     public void logCheckout(ArrayList<Part> cartItems, ArrayList<Integer> cartQuantities, double total) {
 
         for (int i = 0; i < cartItems.size(); i++) {

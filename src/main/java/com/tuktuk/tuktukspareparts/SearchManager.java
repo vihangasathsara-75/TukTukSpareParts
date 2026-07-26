@@ -4,32 +4,26 @@ import java.util.ArrayList;
 
 public class SearchManager {
 
-    // searches through all parts and returns ones that match the filters
     public static ArrayList<Part> search(ArrayList<Part> allParts,
-                                         String categoryFilter,
-                                         String keywordFilter,
-                                         double minPrice,
-                                         double maxPrice) {
+            String categoryFilter,
+            String keywordFilter,
+            double minPrice,
+            double maxPrice) {
 
-        // holds all the parts that match
         ArrayList<Part> results = new ArrayList<>();
 
-        // go through every part one by one
         for (int i = 0; i < allParts.size(); i++) {
 
             Part part = allParts.get(i);
 
-            // assume this part matches until proven false
             boolean matches = true;
 
-            // check category filter
             if (!categoryFilter.isEmpty()) {
                 if (!part.getCategory().equalsIgnoreCase(categoryFilter)) {
                     matches = false;
                 }
             }
 
-            // checks if part name OR brand contains the keyword
             if (!keywordFilter.isEmpty()) {
                 boolean nameContains = part.getName().toLowerCase()
                         .contains(keywordFilter.toLowerCase());
@@ -41,7 +35,6 @@ public class SearchManager {
                 }
             }
 
-            // only check if user set a price range (both min and max above 0)
             if (minPrice > 0 || maxPrice > 0) {
                 if (part.getPrice() < minPrice || part.getPrice() > maxPrice) {
                     matches = false;
@@ -56,7 +49,6 @@ public class SearchManager {
         return results;
     }
 
-    // simple helper to find one part by its exact code
     public static Part findByCode(ArrayList<Part> allParts, String code) {
 
         for (int i = 0; i < allParts.size(); i++) {
@@ -65,7 +57,6 @@ public class SearchManager {
             }
         }
 
-        // nothing found
         return null;
     }
 

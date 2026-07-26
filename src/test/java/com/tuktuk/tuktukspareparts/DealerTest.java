@@ -14,54 +14,46 @@ public class DealerTest {
         dealerManager = new DealerManager();
     }
 
-    // test 1 - exactly 4 dealers are selected
     @Test
     public void testExactlyFourDealersSelected() {
         ArrayList<Dealer> selected = dealerManager.getRandomDealers();
         assertEquals(4, selected.size());
     }
 
-    // test 2 - no duplicate dealers in selection
     @Test
     public void testNoDuplicateDealers() {
         ArrayList<Dealer> selected = dealerManager.getRandomDealers();
         for (int i = 0; i < selected.size(); i++) {
             for (int j = i + 1; j < selected.size(); j++) {
-                // no two dealers should have same code
                 assertNotEquals(selected.get(i).getCode(),
-                    selected.get(j).getCode(),
-                    "Duplicate dealer found: " + selected.get(i).getCode());
+                        selected.get(j).getCode(),
+                        "Duplicate dealer found: " + selected.get(i).getCode());
             }
         }
     }
 
-    // test 3 - selected dealers are sorted alphabetically by location
     @Test
     public void testDealersSortedByLocation() {
         ArrayList<Dealer> sorted = dealerManager.getRandomDealersSortedByLocation();
         for (int i = 0; i < sorted.size() - 1; i++) {
             String current = sorted.get(i).getLocation();
             String next = sorted.get(i + 1).getLocation();
-            // current location should come before or equal to next
             assertTrue(current.compareTo(next) <= 0,
-                "Dealers not sorted: " + current + " should come before " + next);
+                    "Dealers not sorted: " + current + " should come before " + next);
         }
     }
 
-    // test 4 - getRandomDealersSortedByLocation returns 4 dealers
     @Test
     public void testGetRandomDealersSortedReturnsCorrectCount() {
         ArrayList<Dealer> result = dealerManager.getRandomDealersSortedByLocation();
         assertEquals(4, result.size());
     }
 
-    // test 5 - calling selection multiple times still gives 4 unique dealers
     @Test
     public void testMultipleSelectionsAlwaysGiveFourUnique() {
         for (int run = 0; run < 5; run++) {
             ArrayList<Dealer> selected = dealerManager.getRandomDealers();
             assertEquals(4, selected.size());
-            // check no duplicates each time
             for (int i = 0; i < selected.size(); i++) {
                 for (int j = i + 1; j < selected.size(); j++) {
                     assertNotEquals(selected.get(i).getCode(), selected.get(j).getCode());
@@ -70,7 +62,6 @@ public class DealerTest {
         }
     }
 
-    // test 6 - bubble sort for dealers works correctly
     @Test
     public void testDealerBubbleSortByLocation() {
         ArrayList<Dealer> dealers = new ArrayList<>();
@@ -85,14 +76,12 @@ public class DealerTest {
         assertEquals("Pittugala", sorted.get(3).getLocation());
     }
 
-    // test 7 - all loaded dealers come from the file
     @Test
     public void testDealerManagerLoadsFromFile() {
         ArrayList<Dealer> all = dealerManager.getAllDealers();
         assertEquals(8, all.size());
     }
 
-    // test 8 - selected dealers are a subset of all dealers
     @Test
     public void testSelectedDealersAreFromFile() {
         ArrayList<Dealer> all = dealerManager.getAllDealers();
@@ -106,11 +95,10 @@ public class DealerTest {
                 }
             }
             assertTrue(foundInAll,
-                "Selected dealer not from file: " + selected.get(i).getCode());
+                    "Selected dealer not from file: " + selected.get(i).getCode());
         }
     }
 
-    // test 9 - dealer has all required fields
     @Test
     public void testDealerHasAllFields() {
         ArrayList<Dealer> all = dealerManager.getAllDealers();
@@ -124,7 +112,6 @@ public class DealerTest {
         }
     }
 
-    // test 10 - sorted dealers maintain all dealer info
     @Test
     public void testSortedDealersKeepAllInfo() {
         ArrayList<Dealer> sorted = dealerManager.getRandomDealersSortedByLocation();

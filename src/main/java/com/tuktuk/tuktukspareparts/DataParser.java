@@ -9,7 +9,6 @@ import java.util.Locale;
 
 public class DataParser {
 
-    // this method opens the inventory file and collects all parts into a list
     public static ArrayList<Part> loadParts(String filename) {
 
         ArrayList<Part> partList = new ArrayList<>();
@@ -38,7 +37,7 @@ public class DataParser {
         }
 
         return partList;
-    } // loadParts ends here
+    }
 
     private static String formatDate(String rawDate) {
 
@@ -61,46 +60,36 @@ public class DataParser {
                 LocalDate parsed = LocalDate.parse(rawDate, formatter);
                 return parsed.toString();
             } catch (Exception e) {
-                // try next pattern
             }
         }
 
-        // if nothing worked keep original
         return rawDate;
     }
 
-    // this method takes one messy line and turns it into a clean Part object
     private static Part parsePart(String line) {
 
-        // some lines use | and some use ; instead of commas
         line = line.replace("|", ",");
         line = line.replace(";", ",");
 
-        // split by comma to get each field
         String[] fields = line.split(",");
 
-        // trim spaces from every field
         for (int i = 0; i < fields.length; i++) {
             fields[i] = fields[i].trim();
         }
 
-        // need at least 6 fields to be a valid part
         if (fields.length < 6) {
             System.out.println("skipping this line, not enough fields: " + line);
             return null;
         }
 
-        // read basic fields
         String code = fields[0];
         String name = fields[1];
         String brand = fields[2];
 
-        // some parts dont have a brand so use Unknown
         if (brand.isEmpty()) {
             brand = "Unknown";
         }
 
-        // clean the price - remove Rs. or Rs prefix
         String priceStr = fields[3];
         priceStr = priceStr.replace("Rs.", "");
         priceStr = priceStr.replace("Rs", "");
@@ -113,7 +102,6 @@ public class DataParser {
             System.out.println("bad price found: " + priceStr);
         }
 
-        // read quantity
         int quantity = 0;
         try {
             quantity = Integer.parseInt(fields[4]);
@@ -121,16 +109,12 @@ public class DataParser {
             System.out.println("bad quantity found: " + fields[4]);
         }
 
-        // fix category capitalisation - make first letter upper rest lower
         String category = fields[5];
         if (!category.isEmpty()) {
             category = category.substring(0, 1).toUpperCase()
                     + category.substring(1).toLowerCase();
         }
 
-        // handle date - "Oct 15, 2023" has a comma so it gets split
-        // if fields[7] is a 4 digit year it means date got split
-        // so sjoin them back together
         String date = "";
         String imageFile = "";
         int threshold = 5;
@@ -166,13 +150,10 @@ public class DataParser {
             date = formatDate(date);
         }
 
-        // create and return the clean Part object
         return new Part(code, name, brand, price, quantity,
                 category, date, threshold, imageFile);
     }
-    // parsePart ends here
 
-    // this method opens the dealer file and collects all dealers into a list
     public static ArrayList<Dealer> loadDealers(String filename) {
 
         ArrayList<Dealer> dealerList = new ArrayList<>();
@@ -229,6 +210,6 @@ public class DataParser {
 
         return dealerList;
 
-    } // loadDealers ends here
+    }
 
-} // end of DataParser class
+}
