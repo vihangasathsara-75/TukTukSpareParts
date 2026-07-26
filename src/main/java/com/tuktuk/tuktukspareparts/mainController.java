@@ -74,15 +74,15 @@ public class MainController {
     public void loadTable() {
         // Fetch parts list and display in table
         ObservableList<Part> parts = FXCollections.observableArrayList(
-            InventorySorter.getSortedParts(
-                HelloApplication.inventoryManager.getAllParts());
+                InventorySorter.getSortedParts(
+                        HelloApplication.inventoryManager.getAllParts()));
 
         inventoryTable.setItems(parts);
 
         // Update summary stats
         lblTotalCount.setText("Total Parts: " + HelloApplication.inventoryManager.getTotalCount());
         lblTotalValue.setText("Total Value: Rs." +
-        String.format("%.2f", HelloApplication.inventoryManager.getTotalValue())));
+                String.format("%.2f", HelloApplication.inventoryManager.getTotalValue()));
 
         checkLowStock();
     }
