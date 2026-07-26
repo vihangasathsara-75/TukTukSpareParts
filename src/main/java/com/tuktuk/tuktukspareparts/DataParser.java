@@ -133,6 +133,7 @@ public class DataParser {
         // so sjoin them back together
         String date = "";
         String imageFile = "";
+        int threshold = 5;  
 
         if (fields.length > 6) {
             date = fields[6].trim();
@@ -141,23 +142,27 @@ public class DataParser {
                 date = date + ", " + fields[7].trim();
 
                 if (fields.length > 8) {
-                    imageFile = fields[8].trim();
-                }
+                    try {
+                        threshold = Integer.parseInt(fields[8].trim());
+                        if (fields.length > 9) {
+                            imageFile = fields[9].trim();
+                        }                                   
+                    } catch (Exception e) {
+                        imageFile = fields[8].trim();
+                    }
             } else {
                 if (fields.length > 7) {
-                    imageFile = fields[7].trim();
+                    try {
+                        threshold = Integer.parseInt(fields[7].trim());
+                        if (fields.length > 8) {
+                            imageFile = fields[8].trim();
+                        }                                   
+                    } catch (Exception e) {
+                        imageFile = fields[7].trim();
+                    }
                 }
             }
             date = formatDate(date);
-        }
-
-        int threshold = 5;
-        if (fields.length > 9) {
-            try {
-                threshold = Integer.parseInt(fields[9].trim());
-            } catch (Exception e) {
-                System.out.println("bad threshold found: " + fields[9]);
-            }
         }
 
         // create and return the clean Part object
