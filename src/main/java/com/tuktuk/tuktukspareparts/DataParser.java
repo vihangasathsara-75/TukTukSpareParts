@@ -133,7 +133,7 @@ public class DataParser {
         // so sjoin them back together
         String date = "";
         String imageFile = "";
-        int threshold = 5;  
+        int threshold = 5;
 
         if (fields.length > 6) {
             date = fields[6].trim();
@@ -146,17 +146,18 @@ public class DataParser {
                         threshold = Integer.parseInt(fields[8].trim());
                         if (fields.length > 9) {
                             imageFile = fields[9].trim();
-                        }                                   
+                        }
                     } catch (Exception e) {
                         imageFile = fields[8].trim();
                     }
+                }
             } else {
                 if (fields.length > 7) {
                     try {
                         threshold = Integer.parseInt(fields[7].trim());
                         if (fields.length > 8) {
                             imageFile = fields[8].trim();
-                        }                                   
+                        }
                     } catch (Exception e) {
                         imageFile = fields[7].trim();
                     }
@@ -168,8 +169,8 @@ public class DataParser {
         // create and return the clean Part object
         return new Part(code, name, brand, price, quantity,
                 category, date, threshold, imageFile);
-
-    } // parsePart ends here
+    }
+    // parsePart ends here
 
     // this method opens the dealer file and collects all dealers into a list
     public static ArrayList<Dealer> loadDealers(String filename) {
