@@ -67,11 +67,6 @@ public class SearchController {
         double minPrice = 0;
         double maxPrice = 0;
 
-        if (minPrice > 0 && maxPrice > 0 && minPrice > maxPrice) {
-            lblResults.setText("min price cannot be greater than max price");
-            return;
-        }
-
         try {
             if (!txtMinPrice.getText().trim().isEmpty()) {
                 minPrice = Double.parseDouble(txtMinPrice.getText().trim());
@@ -87,6 +82,11 @@ public class SearchController {
             }
         } catch (Exception e) {
             lblResults.setText("max price must be a number");
+            return;
+        }
+
+        if (minPrice > 0 && maxPrice > 0 && minPrice > maxPrice) {
+            lblResults.setText("min price cannot be greater than max price");
             return;
         }
 
