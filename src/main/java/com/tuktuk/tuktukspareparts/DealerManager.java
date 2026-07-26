@@ -14,6 +14,10 @@ public class DealerManager {
         System.out.println("loaded " + allDealers.size() + " dealers from file");
     }
 
+    public ArrayList<Dealer> getAllDealers() {
+        return allDealers;
+    }
+
     // randomly picks 4 unique dealers from the full list
     public ArrayList<Dealer> getRandomDealers() {
 
