@@ -132,15 +132,18 @@ public class MainController {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("edit-part-view.fxml"));
+            Scene scene = new Scene(loader.load(), 400, 400);
+            EditPartController controller = loader.getController();
+            controller.setPart(selectedPart);
             Stage stage = new Stage();
             stage.setTitle("Edit Part");
-            stage.setScene(new Scene(loader.load(), 400, 400));
+            stage.setScene(scene);
             stage.showAndWait();
 
-            // Refresh table after window closes
             loadTable();
         } catch (Exception e) {
             System.out.println("Error opening edit window: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

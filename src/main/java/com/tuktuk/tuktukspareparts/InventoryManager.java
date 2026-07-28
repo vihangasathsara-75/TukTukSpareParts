@@ -71,6 +71,10 @@ public class InventoryManager {
     }
 
     public void saveParts() {
+        if (partList == null || partList.isEmpty()) {
+            System.out.println("Save aborted: partList is empty.");
+            return;
+        }
 
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
